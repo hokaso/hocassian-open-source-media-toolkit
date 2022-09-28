@@ -1,0 +1,9 @@
+from simpysql.DBModel import DBModel
+
+
+class {model_hump_name}(DBModel):
+    __basepath__ = './'  # .env 文件路径
+    __tablename__ = '{model_underline_name}'  # table name
+    columns = [  # table columns
+        {model_hump_column}
+    ]
