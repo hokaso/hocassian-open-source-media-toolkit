@@ -1,23 +1,4 @@
-import sys, os, time, json
-
-sys.path.append(os.getcwd())
-
-
-def hump_to_underline(text):
-    res = []
-    for index, char in enumerate(text):
-        if char.isupper() and index != 0:
-            res.append("_")
-        res.append(char)
-    return ''.join(res).lower()
-
-
-def underline_hump(text):
-    arr = text.lower().split('_')
-    res = []
-    for i in arr:
-        res.append(i[0].upper() + i[1:])
-    return ''.join(res)
+from utils.serializer import hump_to_underline
 
 
 class Run(object):
