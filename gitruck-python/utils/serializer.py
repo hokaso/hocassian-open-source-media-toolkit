@@ -49,7 +49,7 @@ def is_match_pic_ext(filename):
 
 # 判断传入文件是否为视频
 def is_match_video_ext(filename):
-    image_ext = ['.mp4', '.avi', '.mpg', '.mov']
+    image_ext = ['.mp4', '.avi', '.mpg', '.mov', 'flv']
     if os.path.splitext(filename)[-1] in image_ext:
         return True
 

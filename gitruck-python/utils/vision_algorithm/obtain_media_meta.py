@@ -1,11 +1,20 @@
 import shlex
 import subprocess
+import os
 import json
 
+from PIL import Image
 from utils.vision_algorithm.rate_archive_standard import archive_standard
 
 
-def meta_info(filename):
+def image_meta_info(filename):
+    img = Image.open(filename)
+    origin_width, origin_height = img.size
+    origin_size = os.path.getsize(filename)
+    return origin_width, origin_height, origin_size, img
+
+
+def video_meta_info(filename):
     # 采集原始素材信息
     catch_set = f'ffprobe -of json -select_streams v -show_streams "{filename}"'
     catch_json = subprocess.run(
@@ -30,7 +39,7 @@ def meta_info(filename):
         origin_height = origin_info['streams'][0]['height']
         origin_width = origin_info['streams'][0]['width']
 
-    return origin_info, after_rate, origin_height, origin_width
+    return origin_info, after_rate, origin_width, origin_height
 
 
 class ObtainVideoMeta(object):
