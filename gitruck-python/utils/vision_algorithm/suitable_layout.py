@@ -90,17 +90,35 @@ def adapt_extra(fw, fh, mw, mh, tp):
     else:
         if fw >= fh * 4 / 3:
 
-            nw = fh / (3 / 4)
-            cx = int((fw - nw) / 2)
-            cy = 0
-            fw = nw
+            if mw >= mh * 4 / 3:
+
+                nw = int(fh * (3 / 4))
+                cx = int((fw - nw) / 2)
+                cy = 0
+                fw = nw
+
+            else:
+
+                nw = int(fh / (3 / 4))
+                cx = int((fw - nw) / 2)
+                cy = 0
+                fw = nw
 
         else:
 
-            nh = fw / (3 / 4)
-            cx = 0
-            cy = int((fh - nh) / 2)
-            fw = nh
+            if mw >= mh * 4 / 3:
+
+                nh = int(fw * (3 / 4))
+                cx = 0
+                cy = int((fh - nh) / 2)
+                fh = nh
+
+            else:
+
+                nh = int(fw / (3 / 4))
+                cx = 0
+                cy = int((fh - nh) / 2)
+                fh = nh
 
     tw, th, lw, lh = adapt(fw, fh, mw, mh)
     return tw, th, lw, lh, cx, cy, fw, fh

@@ -1,6 +1,7 @@
 # import cv2
 import ffmpeg
 import os
+import copy
 
 from PIL import Image, ImageFilter
 
@@ -22,19 +23,22 @@ class Horizontal2Vertical(object):
     def __init__(self):
 
         # 0正常处理 1四比三 2一比一
-        self.video_frame_type = 0
-        self.image_frame_type = 0
+        self.video_frame_type = 1
+        self.image_frame_type = 1
 
         # 竖转横
-        # self.standard_1k_w = 1920
-        # self.standard_1k_h = 1080
+        self.standard_1k_w = 1920
+        self.standard_1k_h = 1080
 
         # 横转竖
-        self.standard_1k_w = 1080
-        self.standard_1k_h = 1920
+        # self.standard_1k_w = 1080
+        # self.standard_1k_h = 2230
 
         self.source_path = "temp_input/"  # 视频来源路径
         self.save_path = "temp_output/"  # 视频修改后的保存路径
+
+        self.cur_video_name = ""
+        self.cur_image_name = ""
 
     def cal_param(
             self,
@@ -59,6 +63,8 @@ class Horizontal2Vertical(object):
 
         # 采集原始素材信息
         origin_width, origin_height, _, img = image_meta_info(self.source_path + file)
+
+        self.cur_image_name = file
 
         try:
             tw1, th1, cw1, ch1, cw2, ch2, tw2, th2, lw, lh = self.cal_param(origin_width, origin_height)
@@ -106,7 +112,7 @@ class Horizontal2Vertical(object):
             )
 
             self.sp_image_synthesize(
-                img,
+                copy.deepcopy(img),
                 tw1,
                 th1,
                 cw1,
@@ -123,7 +129,7 @@ class Horizontal2Vertical(object):
 
         else:
             self.image_synthesize(
-                img,
+                copy.deepcopy(img),
                 tw1,
                 th1,
                 cw1,
@@ -152,7 +158,7 @@ class Horizontal2Vertical(object):
     ):
 
         back_img = self.image_synthesize_bg(
-            img,
+            copy.deepcopy(img),
             tw1,
             th1,
             cw1,
@@ -192,7 +198,7 @@ class Horizontal2Vertical(object):
     ):
 
         back_img = self.image_synthesize_bg(
-            img,
+            copy.deepcopy(img),
             tw1,
             th1,
             cw1,
@@ -201,7 +207,7 @@ class Horizontal2Vertical(object):
 
         self.image_synthesize_fin(
             back_img,
-            img,
+            copy.deepcopy(img),
             tw2,
             th2,
             lw,
@@ -253,7 +259,8 @@ class Horizontal2Vertical(object):
         # 这两步是用来转换的
         bg = Image.new("RGB", back_img.size, (255, 255, 255))
         bg.paste(back_img)
-        bg.save(os.path.join(self.save_path, str(timestamp_gen()) + '.jpg'), quality=100)
+        bg.save(os.path.join(self.save_path, self.cur_image_name), quality=100)
+        # bg.save(os.path.join(self.save_path, str(timestamp_gen()) + '.jpg'), quality=100)
 
     def process_video(self, file):
 
@@ -450,8 +457,11 @@ class Horizontal2Vertical(object):
             # 根据实际情况决定要转什么
             if is_match_video_ext(file):
                 self.process_video(file)
-            if is_match_pic_ext(file):
-                self.process_image(file)
+            # elif is_match_pic_ext(file):
+            #     self.process_image(file)
+
+            # if is_match_pic_ext(file):
+            #     self.process_image(file)
 
 
 if __name__ == "__main__":
