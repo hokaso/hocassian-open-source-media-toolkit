@@ -48,7 +48,7 @@ def check_email(enter):
     return remove_duplicate(emails)
 
 
-# 筛选出输入文本中的邮箱地址
+# 筛选出输入文本中的网页地址
 def check_url(enter):
     raw_regex = r'((http)(\w|[:/.;/=&#?:%\-,\\.?#\*])*)|(www[.]\w+[.][a-z]+)'
     regex = re.compile(raw_regex)
@@ -125,6 +125,18 @@ class Regex(object):
 
     def __init__(self):
         pass
+
+
+class IsEnglishWord(object):
+
+    def __init__(self):
+        import string
+        self.ew_list = string.ascii_lowercase + string.ascii_uppercase
+
+    def judgement(self, enter):
+        if enter not in self.ew_list:
+            return False
+        return True
 
 
 if __name__ == "__main__":

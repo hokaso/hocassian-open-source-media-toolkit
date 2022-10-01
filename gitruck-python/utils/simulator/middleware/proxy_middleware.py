@@ -1,10 +1,13 @@
-import json, requests
+import json
+import os
+import requests
 
 
 class ProxyMiddleware(object):
 
     def __init__(self):
-        with open("../config.json", 'r') as f0:
+
+        with open("utils/simulator/config.json", 'r') as f0:
             self.info = json.load(f0)
 
     def oversea_proxy_middleware(self):

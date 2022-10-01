@@ -76,5 +76,12 @@ class SeleniumInitialize(object):
 
         self.driver = driver_klass(**driver_kwargs)
 
+        # https://cdn.jsdelivr.net/gh/requireCool/stealth.min.js/stealth.min.js
+        with open('utils/simulator/stealth.min.js', 'r') as f:
+            js = f.read()
+
+        # 调用函数在页面加载前执行脚本
+        self.driver.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument', {'source': js})
+
     def handler(self):
         return self.driver

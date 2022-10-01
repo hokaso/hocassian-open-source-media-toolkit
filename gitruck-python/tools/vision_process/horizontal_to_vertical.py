@@ -23,16 +23,16 @@ class Horizontal2Vertical(object):
     def __init__(self):
 
         # 0正常处理 1四比三 2一比一
-        self.video_frame_type = 1
-        self.image_frame_type = 1
+        self.video_frame_type = 0
+        self.image_frame_type = 0
 
         # 竖转横
-        self.standard_1k_w = 1920
-        self.standard_1k_h = 1080
+        # self.standard_1k_w = 1920
+        # self.standard_1k_h = 1080
 
         # 横转竖
-        # self.standard_1k_w = 1080
-        # self.standard_1k_h = 2230
+        self.standard_1k_w = 1080
+        self.standard_1k_h = 1920
 
         self.source_path = "temp_input/"  # 视频来源路径
         self.save_path = "temp_output/"  # 视频修改后的保存路径

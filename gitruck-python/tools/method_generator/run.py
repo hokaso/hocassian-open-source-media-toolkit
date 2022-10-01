@@ -6,7 +6,7 @@ class Run(object):
     def __init__(self):
 
         # 此处请填入驼峰命名
-        self.method_name = "ObtainVideoMeta"
+        self.method_name = "SeleniumMiddleware"
         _method_name_abbr = ""
 
         for i in self.method_name:
