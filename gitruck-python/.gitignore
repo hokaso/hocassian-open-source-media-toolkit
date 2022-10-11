@@ -10,6 +10,9 @@ requirements.txt
 **/temp_input
 **/temp_output
 **/workspaces/
+**/temp_voice
+**/temp
+utils/simulator/stealth.min.js
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

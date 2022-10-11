@@ -76,6 +76,11 @@ def underline_hump(text):
     return ''.join(res)
 
 
+# 获取工作区目录
+def get_script_dir():
+    return r"{0:}".format(os.getcwd())
+
+
 class Serializer(object):
     pass
 
