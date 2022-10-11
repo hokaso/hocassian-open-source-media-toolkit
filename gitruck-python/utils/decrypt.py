@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 # AES-demo #采用AES对称加密算法
-import os, json, time, base64
+import base64
 from Crypto.Cipher import AES
 
 
 # str不是16的倍数那就补足为16的倍数
 def add_to_16(value):
-
     while len(value) % 16 != 0:
         value += '\0'
 
@@ -15,7 +14,6 @@ def add_to_16(value):
 
 # 解密方法
 def decrypt():
-
     with open("../key.txt", 'r') as f:
         key = f.readline()
 
@@ -25,7 +23,6 @@ def decrypt():
     info = [i.replace("\n", "") for i in _info]
 
     for ikey in info:
-
         with open(ikey + ".en", "r") as f1:
             text = f1.read()
 

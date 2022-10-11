@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # AES-demo #采用AES对称加密算法
-import os, json, time, base64
+import base64
 from Crypto.Cipher import AES
 
 
@@ -13,7 +13,6 @@ def add_to_16(value):
 
 # 加密方法
 def encrypt():
-
     with open("../key.txt", 'r') as f:
         key = f.readline()
 

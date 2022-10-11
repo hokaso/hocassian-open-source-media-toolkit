@@ -8,12 +8,13 @@ CHUNK = 1024
 
 
 # 该方法需要做到轮播一组音频，并且实时暂停实时恢复
-class PlayerThread(Thread):
+class CyclePlayerThread(Thread):
 
-    def __init__(self):
+    def __init__(self, file_list):
 
         super().__init__()
         self.player = pyaudio.PyAudio()
+        self.file_list = file_list
 
         # 用于暂停线程的标识
         self.__flag = Event()
@@ -21,11 +22,11 @@ class PlayerThread(Thread):
 
         self.ifdo = True
 
-    def cycle_play(self, file_list):
+    def run(self):
 
         while self.ifdo:
-            random.shuffle(file_list)
-            for file in file_list:
+            random.shuffle(self.file_list)
+            for file in self.file_list:
                 cur_wf = wave.open(file, 'rb')
 
                 # 打开数据流
@@ -42,9 +43,36 @@ class PlayerThread(Thread):
                     stream.write(data)
                     data = cur_wf.readframes(CHUNK)
 
-    def one_time_play(self, file):
+    def pause(self):
+        self.__flag.clear()  # 设置为False, 让线程阻塞
+        print("pause")
 
-        cur_wf = wave.open(file, 'rb')
+    def resume(self):
+        self.__flag.set()  # 设置为True, 让线程停止阻塞
+        print("resume")
+
+    def stop(self):
+        print('I am stopping it...')
+        self.ifdo = False
+
+
+class OneTimePlayerThread(Thread):
+
+    def __init__(self, file):
+
+        super().__init__()
+        self.player = pyaudio.PyAudio()
+        self.file = file
+
+        # 用于暂停线程的标识
+        self.__flag = Event()
+        self.__flag.set()
+
+        self.ifdo = True
+
+    def run(self):
+
+        cur_wf = wave.open(self.file, 'rb')
 
         # 打开数据流
         stream = self.player.open(
@@ -81,11 +109,11 @@ class PlayerThread(Thread):
 
 
 if __name__ == "__main__":
-    # pt_1 = PlayerThread()
-    # a = ["感谢点赞_01(总).wav", "感谢点赞_02.wav", "感谢点赞_03.wav"]
-    # pt_1.cycle_play(a)
+    a = ["感谢点赞_01(总).wav", "感谢点赞_02.wav", "感谢点赞_03.wav"]
+    pt_1 = CyclePlayerThread(a)
+    pt_1.start()
 
     b = "感谢点赞_02.wav"
-    pt_2 = PlayerThread()
-    pt_2.one_time_play(b)
+    pt_2 = OneTimePlayerThread(b)
+    pt_2.start()
 
