@@ -13,6 +13,7 @@ requirements.txt
 **/temp_voice
 **/temp
 utils/simulator/stealth.min.js
+workspaces/live_steamer/nginx/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

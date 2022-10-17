@@ -265,7 +265,7 @@ class Horizontal2Vertical(object):
     def process_video(self, file):
 
         # 采集原始素材信息
-        origin_info, after_rate, origin_width, origin_height = video_meta_info(self.source_path + file)
+        origin_width, origin_height, _, _ = video_meta_info(self.source_path + file)
 
         try:
             tw1, th1, cw1, ch1, cw2, ch2, tw2, th2, lw, lh = self.cal_param(origin_width, origin_height)
@@ -460,8 +460,8 @@ class Horizontal2Vertical(object):
             # elif is_match_pic_ext(file):
             #     self.process_image(file)
 
-            # if is_match_pic_ext(file):
-            #     self.process_image(file)
+            if is_match_pic_ext(file):
+                self.process_image(file)
 
 
 if __name__ == "__main__":

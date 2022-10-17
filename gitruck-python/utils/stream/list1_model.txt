@@ -1,0 +1,3 @@
+ffconcat version 1.0
+file {filename1}
+file list2.txt
