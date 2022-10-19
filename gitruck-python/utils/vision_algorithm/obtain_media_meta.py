@@ -27,6 +27,34 @@ def video_meta(filename):
     return origin_info
 
 
+def video_rate_info(origin_info):
+    # 确定渲染帧率
+    if 'avg_frame_rate' in origin_info['streams'][0]:
+        pix_rate = origin_info['streams'][0]['avg_frame_rate']
+        after_rate = archive_standard(eval(pix_rate))
+    else:
+        # 默认30fps
+        after_rate = 30
+
+    return after_rate
+
+
+def video_is_ten_bit(origin_info):
+    if 'pix_fmt' in origin_info['streams'][0]:
+        origin_pix_fmt = origin_info['streams'][0]['pix_fmt']
+        if origin_pix_fmt == 'yuv422p10le':
+            return True
+    return False
+
+
+def video_is_bt2020(origin_info):
+    if 'color_primaries' in origin_info['streams'][0]:
+        origin_pix_fmt = origin_info['streams'][0]['color_primaries']
+        if origin_pix_fmt == 'bt2020':
+            return True
+    return False
+
+
 def video_meta_info(filename):
     # 采集原始素材信息
     origin_info = video_meta(filename)

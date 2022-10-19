@@ -28,7 +28,6 @@ class StreamServer(object):
     def pusher_sp(self, filename):
         ffmpeg.input(
             self.clip_pool_path + filename,
-            safe=0,
             re=None
         ).output(
             self.server_url,
@@ -62,7 +61,7 @@ class ContinuousStreamPusher(object):
     def change_list_1(self):
         filepath, duration = self.get_clip()
 
-        with open("list1_model.txt", 'r') as f0:
+        with open("utils/stream/list1_model.txt", 'r') as f0:
             list1_model = f0.read()
 
         with open(self.clip_pool_path + "list1.txt", 'w') as f0:
@@ -73,7 +72,7 @@ class ContinuousStreamPusher(object):
     def change_list_2(self):
         filepath, duration = self.get_clip()
 
-        with open("list2_model.txt", 'r') as f0:
+        with open("utils/stream/list2_model.txt", 'r') as f0:
             list1_model = f0.read()
 
         with open(self.clip_pool_path + "list2.txt", 'w') as f0:
@@ -113,3 +112,4 @@ if __name__ == "__main__":
     p1 = multiprocessing.Process(target=ss.pusher)
     p1.daemon = True
     p1.start()
+
