@@ -71,7 +71,8 @@ from concurrent.futures import ThreadPoolExecutor
 class ClipStabilizer(object):
 
     def __init__(self):
-        self.unstable_clip_folder = r"M:\data\互动派\正佳极地公园\木洲手机\selection/"
+        path = input(r"请输入需要处理的视频文件夹（例如「M:\data\互动派\正佳极地公园\手机」）：")
+        self.unstable_clip_folder = path + r"/"
         self.clip_list = [self.unstable_clip_folder + i for i in os.listdir(self.unstable_clip_folder) if is_match_video_ext(i)]
 
         # 新建文件夹

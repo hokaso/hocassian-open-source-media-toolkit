@@ -6,7 +6,7 @@ class Run(object):
     def __init__(self):
 
         # 此处请填入驼峰命名
-        self.method_name = "SelectionSegment"
+        self.method_name = "TimeConvert"
         _method_name_abbr = ""
 
         for i in self.method_name:
@@ -14,7 +14,6 @@ class Run(object):
                 _method_name_abbr += i
 
         self.method_name_abbr = _method_name_abbr.lower()
-
         self.method_filename = hump_to_underline(self.method_name)
 
         with open("method_model.txt", 'r') as f0:

@@ -27,12 +27,12 @@ class Horizontal2Vertical(object):
         self.image_frame_type = 0
 
         # 竖转横
-        # self.standard_1k_w = 1920
-        # self.standard_1k_h = 1080
+        self.standard_1k_w = 1920
+        self.standard_1k_h = 1080
 
         # 横转竖
-        self.standard_1k_w = 1080
-        self.standard_1k_h = 1920
+        # self.standard_1k_w = 1080
+        # self.standard_1k_h = 1920
 
         self.source_path = "temp_input/"  # 视频来源路径
         self.save_path = "temp_output/"  # 视频修改后的保存路径
@@ -455,8 +455,8 @@ class Horizontal2Vertical(object):
         for file in os.listdir(self.source_path):
 
             # 根据实际情况决定要转什么
-            if is_match_video_ext(file):
-                self.process_video(file)
+            # if is_match_video_ext(file):
+            #     self.process_video(file)
             # elif is_match_pic_ext(file):
             #     self.process_image(file)
 

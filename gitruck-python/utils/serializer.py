@@ -1,5 +1,7 @@
 import json
 import os
+
+
 # import sys
 
 # sys.path.append(os.getcwd())
@@ -46,14 +48,19 @@ def cookies_suit_chrome(cookies):
 # 判断传入文件是否为图片
 def is_match_pic_ext(filename):
     image_ext = ['.jpg', '.png', '.jpeg', '.bmp']
-    if os.path.splitext(filename)[-1] in image_ext:
+    if os.path.splitext(filename)[-1].lower() in image_ext:
         return True
 
 
 # 判断传入文件是否为视频
 def is_match_video_ext(filename):
-    image_ext = ['.mp4', '.avi', '.mpg', '.mov', 'flv']
-    if os.path.splitext(filename)[-1] in image_ext:
+    image_ext = [
+        '.mp4', '.avi', '.mpg', '.mov',
+        'flv', "mxf", "mpeg", "mkv",
+        "ogg", "3gp", "wmv", "h264",
+        "m4v", "webm"
+    ]
+    if os.path.splitext(filename)[-1].lower() in image_ext:
         return True
 
 

@@ -1,3 +1,5 @@
 ffconcat version 1.0
 file {filename2}
+inpoint   {ts1}
+outpoint  {ts2}
 file list1.txt

@@ -11,7 +11,9 @@ from concurrent.futures import ThreadPoolExecutor
 class SelectionSegment(object):
 
     def __init__(self):
-        self.raw_clip_folder = r"F:\影视\2022下\20220903\航天奇观\需要切片/"
+        path = input(r"请输入需要处理的视频文件夹（例如「M:\data\互动派\正佳极地公园\手机」）：")
+
+        self.raw_clip_folder = path + r"/"
         # self.raw_clip_folder = r"F:/影视/2022下/20220819/待处理/"
         self.clip_list = [self.raw_clip_folder + i for i in os.listdir(self.raw_clip_folder) if is_match_video_ext(i)]
 

@@ -27,6 +27,18 @@ def video_meta(filename):
     return origin_info
 
 
+def video_origin_rate_info(origin_info):
+    # 确定渲染帧率
+    if 'avg_frame_rate' in origin_info['streams'][0]:
+        pix_rate = origin_info['streams'][0]['avg_frame_rate']
+        after_rate = eval(pix_rate)
+    else:
+        # 默认30fps
+        after_rate = 30
+
+    return after_rate
+
+
 def video_rate_info(origin_info):
     # 确定渲染帧率
     if 'avg_frame_rate' in origin_info['streams'][0]:
