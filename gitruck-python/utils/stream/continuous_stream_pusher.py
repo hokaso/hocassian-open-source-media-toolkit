@@ -14,7 +14,10 @@ class StreamServer(object):
         self.clip_pool_path = clip_pool_path
         self.server_url = server_url
 
+        self.limited_dur = 30
+
     def pusher(self):
+
         ffmpeg.input(
             self.clip_pool_path + 'list1.txt',
             safe=0,
@@ -27,8 +30,17 @@ class StreamServer(object):
         ).run()
 
     def pusher_sp(self, filename):
+
+        _, _, origin_duration, _ = video_meta_info(filename)
+
+        if self.limited_dur - origin_duration >= 1:
+            _ss = round(origin_duration)
+        else:
+            _ss = random.randint(0, round(origin_duration - self.limited_dur))
+
         ffmpeg.input(
-            self.clip_pool_path + filename,
+            filename,
+            ss=str(_ss),
             re=None
         ).output(
             self.server_url,
