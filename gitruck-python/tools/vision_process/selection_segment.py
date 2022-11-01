@@ -11,7 +11,7 @@ from concurrent.futures import ThreadPoolExecutor
 class SelectionSegment(object):
 
     def __init__(self):
-        self.raw_clip_folder = r"F:\影视\2022下\20220903\航天奇观\需要切片/"
+        self.raw_clip_folder = r"F:\影视\2022下\20220924/"
         # self.raw_clip_folder = r"F:/影视/2022下/20220819/待处理/"
         self.clip_list = [self.raw_clip_folder + i for i in os.listdir(self.raw_clip_folder) if is_match_video_ext(i)]
 
@@ -21,7 +21,7 @@ class SelectionSegment(object):
             os.makedirs(self.fin_clip_path)
 
         self.threshold_default = 20
-        self.crf_default = 20
+        self.crf_default = 15
         self.acceptable_shortest_interval = 5
 
         # 线程池相关

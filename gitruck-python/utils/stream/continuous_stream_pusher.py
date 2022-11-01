@@ -16,37 +16,54 @@ class StreamServer(object):
 
         self.limited_dur = 30
 
+    @staticmethod
+    def stop_stream(process):
+        process.communicate(str.encode("q"))
+        time.sleep(3)
+        process.terminate()
+
     def pusher(self):
 
-        ffmpeg.input(
-            self.clip_pool_path + 'list1.txt',
-            safe=0,
-            f='concat',
-            re=None
-        ).output(
-            self.server_url,
-            codec="copy",
-            f='flv'
-        ).run()
+        _process = (
+            ffmpeg.input(
+                self.clip_pool_path + 'list1.txt',
+                safe=0,
+                f='concat',
+                re=None
+            ).output(
+                self.server_url,
+                codec="copy",
+                f='flv'
+            )
+        )
+
+        process = _process.run_async(pipe_stdin=True)
+        return process
 
     def pusher_sp(self, filename):
 
-        _, _, origin_duration, _ = video_meta_info(filename)
+        _, _, origin_duration, after_rate = video_meta_info(filename)
 
         if self.limited_dur - origin_duration >= 1:
             _ss = round(origin_duration)
         else:
             _ss = random.randint(0, round(origin_duration - self.limited_dur))
 
-        ffmpeg.input(
-            filename,
-            ss=str(_ss),
-            re=None
-        ).output(
-            self.server_url,
-            codec="copy",
-            f='flv'
-        ).run()
+        _process = (
+            ffmpeg.input(
+                filename,
+                r=str(after_rate),
+                ss=str(_ss),
+                re=None
+            ).output(
+                self.server_url,
+                codec="copy",
+                f='flv'
+            )
+        )
+
+        process = _process.run_async(pipe_stdin=True)
+        return process
 
 
 class ContinuousStreamPusher(object):

@@ -54,13 +54,22 @@ def is_match_pic_ext(filename):
 
 # 判断传入文件是否为视频
 def is_match_video_ext(filename):
-    image_ext = [
+    video_ext = [
         '.mp4', '.avi', '.mpg', '.mov',
-        'flv', "mxf", "mpeg", "mkv",
-        "ogg", "3gp", "wmv", "h264",
-        "m4v", "webm"
+        '.flv', ".mxf", ".mpeg", ".mkv",
+        ".ogg", ".3gp", ".wmv", ".h264",
+        ".m4v", ".webm"
     ]
-    if os.path.splitext(filename)[-1].lower() in image_ext:
+    if os.path.splitext(filename)[-1].lower() in video_ext:
+        return True
+
+
+# 判断传入文件是否为音频
+def is_match_audio_ext(filename):
+    audio_ext = [
+        '.wav', '.mp3', '.m4a', '.ape'
+    ]
+    if os.path.splitext(filename)[-1].lower() in audio_ext:
         return True
 
 
@@ -86,6 +95,20 @@ def underline_hump(text):
 # 获取工作区目录
 def get_script_dir():
     return r"{0:}".format(os.getcwd())
+
+
+def default_ext(i):
+    return True
+
+
+# 文件路径组合
+def get_folder_files(folder_path, ext_func=default_ext):
+    # return [folder_path + i for i in os.listdir(folder_path)]
+    temp_list = []
+    for i in os.listdir(folder_path):
+        if ext_func(i):
+            temp_list.append(folder_path + i)
+    return temp_list
 
 
 class Serializer(object):
