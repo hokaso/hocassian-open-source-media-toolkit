@@ -19,7 +19,7 @@ class StreamServer(object):
     @staticmethod
     def stop_stream(process):
         process.communicate(str.encode("q"))
-        time.sleep(3)
+        time.sleep(2)
         process.terminate()
 
     def pusher(self):
