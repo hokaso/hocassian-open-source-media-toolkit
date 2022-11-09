@@ -186,6 +186,59 @@ class EmbedTransport(object):
         return parsed_text
 
 
+class JsonCombinator(object):
+
+    """
+    # 使用例：
+    # from utils.serializer import JsonCombinator
+    #
+    #
+    # def default_info(data):
+    #     return data["data"]["records"]
+    #
+    #
+    # js = JsonCombinator(
+    #     input_path="data",
+    #     output_path="output.json",
+    #     info_floor=default_info,
+    # )
+    # js.run()
+    """
+
+    @staticmethod
+    def default_info(info):
+        return info["data"]
+
+    def __init__(
+            self,
+            input_path="input",
+            output_path="output.json",
+            info_floor=default_info,
+    ):
+
+        self.path_input = input_path
+        self.path_output = output_path
+        self.info_floor = info_floor
+
+    def run(self):
+
+        all_info = []
+
+        for root, dirs, files in os.walk(self.path_input):
+            # 遍历所有文件
+            for file in files:
+                if os.path.splitext(file)[-1] == '.json':
+
+                    with open(root + "/" + file, 'r', encoding='utf-8', errors='ignore') as f0:
+                        info = json.load(f0)
+
+                    for ikey in self.info_floor(info):
+                        all_info.append(ikey)
+
+        with open(self.path_output, 'w', encoding='utf-8') as fp:
+            json.dump(all_info, fp, ensure_ascii=False)
+
+
 if __name__ == "__main__":
     a = ["1", "2", "3"]
     serialize(a)

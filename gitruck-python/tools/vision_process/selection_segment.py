@@ -21,7 +21,7 @@ class SelectionSegment(object):
             os.makedirs(self.fin_clip_path)
 
         self.threshold_default = 20
-        self.crf_default = 15
+        self.crf_default = "15"
         self.acceptable_shortest_interval = 5
 
         # 线程池相关

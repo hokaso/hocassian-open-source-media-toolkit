@@ -19,7 +19,7 @@ class StreamServer(object):
     @staticmethod
     def stop_stream(process):
         process.communicate(str.encode("q"))
-        time.sleep(2)
+        time.sleep(3)
         process.terminate()
 
     def pusher(self):
@@ -68,7 +68,7 @@ class StreamServer(object):
 
 class ContinuousStreamPusher(object):
 
-    def __init__(self, clip_pool_path):
+    def __init__(self, clip_pool_path, scene_dur=120):
         self.clip_pool_path = clip_pool_path
         # self.clip_list = [self.clip_pool_path + "/" + i for i in os.listdir(self.clip_pool_path)]
 
@@ -77,7 +77,7 @@ class ContinuousStreamPusher(object):
         self.clip_list_length = len(self.clip_list)
 
         # 直播画面持续时间基准值
-        self.scene_dur = 120
+        self.scene_dur = scene_dur
 
         # 直播画面持续时间±值
         self.scene_pm = 30

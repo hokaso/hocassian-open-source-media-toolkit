@@ -18,7 +18,7 @@ def clip_render(clip_name, scenes, crf, output_dir):
         scenes,
         "$VIDEO_NAME - Scene $SCENE_NUMBER.mp4",
         output_dir + f_name,
-        arg_override='-c:v libx264 -preset medium -crf ' + str(crf) + ' -c:a aac',
+        arg_override='-c:v libx264 -preset medium -crf ' + crf + ' -c:a aac',
         show_progress=True,
         show_output=False
     )

@@ -14,7 +14,7 @@ class VideoSlicer(object):
         self.input_clip_list = [self.input_dir + i for i in os.listdir(self.input_dir) if is_match_video_ext(i)]
 
         self.threshold_default = 27.5
-        self.crf_default = 20
+        self.crf_default = "20"
 
     def run(self):
         for key in self.input_clip_list:

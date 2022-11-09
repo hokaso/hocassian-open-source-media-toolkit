@@ -48,9 +48,9 @@ class BasePlayerThread(Thread):
         self.__flag.set()  # 设置为True, 让线程停止阻塞
         print("resume")
 
-    def stop(self):
-        print('I am stopping it...')
-        self.ifdo = False
+    # def stop(self):
+    #     print('I am stopping it...')
+    #     self.ifdo = False
 
 
 # 该方法需要做到轮播一组音频，并且实时暂停实时恢复
